@@ -10,5 +10,5 @@ jobs:
         uses: shabane/learn-action@master
         with:
           who-to-greet: 'Mona the Octocat'
-      - run: echo random-number ${{ steps.foo.outputs.random-number }}
+      - run: echo random-numberr ${{ steps.foo.outputs.random-number }}
         shell: bash
