@@ -1,8 +1,7 @@
 name: build-and-push-by-label
 on:
-  issues:
-    types:
-      - "labeled"
+  schedule:
+    - cron: '1 * * * *'
 
 jobs:
   build-push:
