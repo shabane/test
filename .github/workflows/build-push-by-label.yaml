@@ -21,7 +21,7 @@ jobs:
     - id: foo0
       uses: bit-orbit/issue-2-hugo-post@master
       with:
-        NAME: 'carbon'
+        REPO: 'carbon'
         OWNER: 'shabane'
         PUB_DIR: 'content'
         DEBUG: True
