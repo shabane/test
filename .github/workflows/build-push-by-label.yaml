@@ -11,7 +11,7 @@ jobs:
   build-push:
     runs-on: ubuntu-latest
     steps:
-    - run: sudo apt-get install tree y
+    - run: sudo apt-get install tree -y
     - run: tree
     - uses: actions/checkout@v3
     - id: foo
