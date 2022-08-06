@@ -18,7 +18,7 @@ jobs:
     - run: sudo apt-get install tree -y
     - run: tree
     - uses: actions/checkout@v3
-    - id: foo
+    - id: foo0
       uses: bit-orbit/issue-2-hugo-post@master
       with:
         NAME: 'carbon'
