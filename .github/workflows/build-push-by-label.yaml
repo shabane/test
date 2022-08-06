@@ -8,7 +8,6 @@ jobs:
   build-push:
     runs-on: ubuntu-latest
     steps:
-    - if: ${{ github.event.label.name }} == 'bug'
     - uses: actions/checkout@v3
     - id: foo
       uses: bit-orbit/issue-2-hugo-post@master
