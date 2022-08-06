@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: download
-        if: ${{ contains(['bug', 'poop'], github.event.label.name) }}
+        if: ${{ github.event.label.name }} == 'bug'
         uses: bit-orbit/issue-2-hugo-post@master
         with:
           REPO: 'carbon'
