@@ -11,15 +11,6 @@ jobs:
   build-push:
     runs-on: ubuntu-latest
     steps:
-<<<<<<< HEAD
-      - uses: actions/checkout@v3
-      - id: foo
-        uses: shabane/learn-action@master
-        with:
-          who-to-greet: 'Mona the Octocat'
-      - run: echo random-numberr ${{ steps.foo.outputs.random-number }}
-        shell: bash
-=======
     - run: sudo apt-get install tree -y
     - run: tree
     - uses: actions/checkout@v3
@@ -30,4 +21,3 @@ jobs:
         OWNER: 'shabane'
         PUB_DIR: 'content'
         DEBUG: True
->>>>>>> parent of af6f7a3 (mastan salamat mikonand)
