@@ -1,10 +1,17 @@
-on: [push]
+name: build-and-push-by-label
+on:
+  issues:
+    types:
+      - "labeled"
+
+  schedule:
+    - cron: '5 * * * *'
 
 jobs:
-  hello_world_job:
+  build-push:
     runs-on: ubuntu-latest
-    name: A job to say hello
     steps:
+<<<<<<< HEAD
       - uses: actions/checkout@v3
       - id: foo
         uses: shabane/learn-action@master
@@ -12,3 +19,15 @@ jobs:
           who-to-greet: 'Mona the Octocat'
       - run: echo random-numberr ${{ steps.foo.outputs.random-number }}
         shell: bash
+=======
+    - run: sudo apt-get install tree -y
+    - run: tree
+    - uses: actions/checkout@v3
+    - id: foo
+      uses: bit-orbit/issue-2-hugo-post@master
+      with:
+        NAME: 'carbon'
+        OWNER: 'shabane'
+        PUB_DIR: 'content'
+        DEBUG: True
+>>>>>>> parent of af6f7a3 (mastan salamat mikonand)
