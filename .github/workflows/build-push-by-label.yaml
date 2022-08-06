@@ -3,6 +3,9 @@ on:
   issues:
     types:
       - "labeled"
+  push:
+    branches:
+      - "master"
 
 jobs:
   build-push:
