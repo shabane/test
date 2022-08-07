@@ -1,27 +1,57 @@
-name: build-and-push-by-label
+name: check-label-then-build-and-deploy
 on:
   issues:
-    types:
-      - "labeled"
-
-  schedule:
-    - cron: '5 * * * *'
-
-  push:
-    branches:
-      - "master"
+    types: [labeled]
 
 jobs:
-  build-push:
+  checkLabel:
     runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'post') || contains(github.event.issue.labels.*.name, 'blog')
     steps:
-    - run: sudo apt-get install tree -y
-    - run: tree
-    - uses: actions/checkout@v3
-    - id: foo0
-      uses: bit-orbit/issue-2-hugo-post@master
-      with:
-        REPO: 'carbon'
-        OWNER: 'shabane'
-        PUB_DIR: 'content'
-        DEBUG: True
+      - name: checkout the blog
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
+
+
+      - uses: bit-orbit/issue-2-hugo-post@master
+        with:
+          REPO: 'test'
+          OWNER: 'shabane'
+          PUB_DIR: 'content'
+          DEBUG: True # verbose if True, otherwise quiet. default to False
+
+      - name: setup hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: build
+        run: hugo --minify
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/seprate'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+
+      - name: Commit files
+        run: |
+          git config --local user.email "m.mohamadshabane@gmail.com"
+          git config --local user.name "shabane"
+          git add --all
+          git commit -m "Auto commiting changes"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Close Issue
+        uses: peter-evans/close-issue@v2
+        with:
+          comment: Thanks for your contribution, we added this chapter to the book :)
